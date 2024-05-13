@@ -5,16 +5,6 @@ using System.Text.Json.Serialization;
 
 namespace ShareInvest.UPbit.Models;
 
-/// <summary>
-/// EVEN: 보합
-/// RISE: 상승
-/// FALL: 하락
-/// </summary>
-public enum Change
-{
-    EVEN, RISE, FALL
-}
-
 public class Market
 {
     /// <summary>업비트에서 제공중인 시장 정보</summary>
