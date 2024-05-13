@@ -1,5 +1,5 @@
 ```C#
-Ticker tickers;
+IEnumerable<Ticker> tickers;
 
 using (var api = new Quotation())
 {
@@ -32,6 +32,5 @@ using (var socket = new WebSocket())
         codes = tickers.Select(e => e.Code)
     });
     await task;
-}
 }
 ```
