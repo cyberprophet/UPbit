@@ -10,7 +10,7 @@ public class Ticker
 {
     /// <summary>종목 구분 코드</summary>
     [DataMember, JsonProperty("market"), JsonPropertyName("market")]
-    public string? Code
+    public virtual string? Code
     {
         get; set;
     }
