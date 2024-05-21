@@ -47,6 +47,12 @@ public class WebSocket : ShareWebSocket<TickerEventArgs>
 
             OnReceiveTicker(Encoding.UTF8.GetString(buffer, 0, res.Count));
         }
+        Console.WriteLine(new
+        {
+            CryptoExchange = nameof(UPbit),
+            DateTime.Now,
+            Socket = Socket.State
+        });
     }
 
     public override async Task ConnectAsync(string? token = null, TimeSpan? interval = null)
