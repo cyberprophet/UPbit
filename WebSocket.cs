@@ -3,6 +3,10 @@
 using ShareInvest.Crypto;
 using ShareInvest.UPbit.EventHandler;
 
+using System.Net.WebSockets;
+
+using System.Text;
+
 namespace ShareInvest.UPbit;
 
 public class WebSocket : ShareWebSocket<TickerEventArgs>
@@ -35,11 +39,20 @@ public class WebSocket : ShareWebSocket<TickerEventArgs>
 
     public override async Task ReceiveAsync()
     {
-        await base.ReceiveAsync();
+        while (WebSocketState.Open == Socket.State)
+        {
+            var buffer = new byte[0x400];
+
+            var res = await Socket.ReceiveAsync(new ArraySegment<byte>(buffer), cts.Token);
+
+            OnReceiveTicker(Encoding.UTF8.GetString(buffer, 0, res.Count));
+        }
     }
 
     public override async Task ConnectAsync(string? token = null, TimeSpan? interval = null)
     {
         await base.ConnectAsync(token, interval: interval ?? TimeSpan.FromSeconds(0xA));
     }
+
+    readonly CancellationTokenSource cts = new();
 }
