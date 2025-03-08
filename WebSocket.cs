@@ -9,7 +9,7 @@ using System.Text;
 
 namespace ShareInvest.UPbit;
 
-public class WebSocket : ShareWebSocket<TickerEventArgs>
+public class WebSocket : ShareWebSocket<ResponseEventArgs>
 {
     public WebSocket() : base("api.upbit.com/websocket/v1")
     {
@@ -41,12 +41,13 @@ public class WebSocket : ShareWebSocket<TickerEventArgs>
     {
         while (WebSocketState.Open == Socket.State)
         {
-            var buffer = new byte[0x400];
+            var buffer = new byte[0x400 * 3];
 
             var res = await Socket.ReceiveAsync(new ArraySegment<byte>(buffer), cts.Token);
 
             OnReceiveTicker(Encoding.UTF8.GetString(buffer, 0, res.Count));
         }
+
         Console.WriteLine(new
         {
             CryptoExchange = nameof(UPbit),
