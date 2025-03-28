@@ -18,7 +18,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Crypto\Crypto.csproj" />
+		<ProjectReference Include="..\Crypto\Crypto\Crypto.csproj" />
 	</ItemGroup>
 
 </Project>
